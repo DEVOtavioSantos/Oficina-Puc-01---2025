@@ -5,66 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game </title>
     <link rel="stylesheet" href="style.css">
+   
 </head>
-<body>
-    <style>
-        .container{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
+<body onload="animation()">
+   
     <div class="container">
-        <canvas></canvas>
+        <canvas class="game"></canvas>
     </div>
     
-    <script >
+    <script>
         const canvas = document.querySelector('canvas')
         const ctx = canvas.getContext('2d')
 
-        canvas.width = 1024;
-        canvas.height = 576;
+        canvas.width = 1536;
+        canvas.height = 864;
 
         let X = canvas.width /2;
         let y = canvas.height /2 ;
 
         window.addEventListener("keydown", (tecla)=>{
-            if(tecla.code == "KeyA")
+            if(tecla.code == "KeyA" && X> 0)
                 X -= 10
             
                 
         } )
         window.addEventListener("keydown", (tecla)=>{
-            if(tecla.code == "KeyD")
+            if(tecla.code == "KeyD" && X < canvas.width-20)
                 X += 10
             
                 
         } )
         window.addEventListener("keydown", (tecla)=>{
-            if(tecla.code == "KeyW")
-                y -= 20
+            if(tecla.code == "KeyW" && y> 0)
+                y -= 10
             
                 
         } )
 
 
+        window.addEventListener("keydown", (tecla)=>{
+            if(tecla.code == "KeyS" && y<canvas.height-20)
+                y += 10
+            
+                
+        } )
+
+        window.addEventListener("keydown", (tecla) => {
+            if (tecla.code == "Space")
+        {
+                
+        }
+        })
+
         function animation()
         {
             requestAnimationFrame(animation)
             
-            ctx.fillStyle = "black"
+            ctx.fillStyle = "white"
             ctx.fillRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle = "blue"
+            
+         
+            ctx.fillStyle = "red"
             ctx.fillRect(X,y,20,20)
-            if (y < canvas.height -20)
-            {
-                y+=10
-            }
+
+            ctx.fillStyle = "black"
+            ctx.font = "bold 30px serif";
+            ctx.fillText("Jogo em JavaScript | Oficina PUC MINAS 1º 2025",10,40);
+            ctx.font = "bold 15px serif";
+            ctx.fillText("Aprenderndo a Utilizar o Canvas 👍",10,70);
+            
+            
             
         }
-        animation()
-        
     </script>
+   
 
     
 </body>
