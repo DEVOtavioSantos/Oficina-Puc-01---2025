@@ -67,11 +67,21 @@
             frames++
         }
 
-        addEventListener('touchstart', (evento) => {
-            toque.x = evento.targetTouches[0].clientX
-            toque.y = evento.targetTouches[0].clientY
+        addEventListener('mousedown', (evento) => {
+            toque.x = evento.clientX
+            toque.y = evento.clientX
+        })
+        
+        addEventListener('mousemove', (evento) => {
+            toque.x = evento.clientX
+            toque.y = evento.clientY
+        })
+        addEventListener('mouseout', (evento) => {
+            toque.x = evento.null
+            toque.y = evento.null
         })
 
+        
         animation();
 
     </script>
