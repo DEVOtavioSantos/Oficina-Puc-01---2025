@@ -1,12 +1,14 @@
 <html>
 
 <body style="background-color: black;">
-    <img src="Warrior_Red.png" hidden />
     <canvas></canvas>
+    <img src="Warrior_Red.png" hidden />
+    <img src="Torch_Blue.png" hidden class="ilimigo" />
     <script>
         const canvas = document.querySelector("canvas")
         const ctx = canvas.getContext("2d")
         const imagem = document.querySelector('img')
+        const Imagem_E = document.querySelector('.ilimigo')
 
         canvas.width = 1024;
         canvas.height = 720;
@@ -22,8 +24,16 @@
         const player = {
             x: canvas.width / 2,
             y: canvas.height / 2,
-            velocidade: 10
+            velocidade: 5
         }
+
+        const ilimigo = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            velocidade: 2
+        }
+
+
 
         function animation() {
             requestAnimationFrame(animation)
@@ -44,6 +54,13 @@
                 player.y += Math.sin(angulo) * player.velocidade;
             }
 
+            const E_dx = player.x - ilimigo.x;
+            const E_dy = player.y - ilimigo.y;
+            const E_Angulo = Math.atan2(E_dy, E_dx)
+            ilimigo.x += Math.cos(E_Angulo) * ilimigo.velocidade
+            ilimigo.y += Math.sin(E_Angulo) * ilimigo.velocidade
+            const distancia = Math.h
+
             const alturaFrame = imagem.height / 8; //8 linha no sprite
             const larguraFrame = imagem.width / 6  //6 colunas no sprite
             ctx.drawImage(
@@ -54,6 +71,20 @@
                 alturaFrame,                //altura de corte,
                 player.x,                   //x para desenho no canvas
                 player.y,                   //y para desenho no canvas
+                larguraFrame,               //largura do desenho no canvas
+                alturaFrame                 //altura do desenho no canvas
+            )
+
+            const alturaFrame_E = imagem.height / 9; //8 linha no sprite
+            const larguraFrame_E = imagem.width / 6  //6 colunas no sprit
+            ctx.drawImage(
+                Imagem_E,                     //imagem para recorte
+                colunaFrame * larguraFrame_E, //x inicio corte
+                linhaFrame * alturaFrame_E,   //y inicio corte
+                larguraFrame_E,               //largura de corte
+                alturaFrame_E,                //altura de corte,
+                ilimigo.x,                   //x para desenho no canvas
+                ilimigo.y,                   //y para desenho no canvas
                 larguraFrame,               //largura do desenho no canvas
                 alturaFrame                 //altura do desenho no canvas
             )
@@ -98,6 +129,8 @@
             toque.x = null
             toque.y = null
         })
+
+
 
         animation();
 
